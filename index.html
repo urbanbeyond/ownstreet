@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Street Brand — Quick Launcher</title>
+  <style>
+    :root{--bg:#0b0b0b;--card:#141414;--ink:#f0f0f0;--muted:#a6a6a6;--accent:#98f5e1;--ok:#58d38c}
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#0a0a0a,#111);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Pretendard,Noto Sans KR,sans-serif}
+    .wrap{max-width:880px;margin:0 auto;padding:22px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:8px;font-weight:800}
+    .dot{width:10px;height:10px;border-radius:50%;background:var(--accent)}
+    .btn{appearance:none;border:1px solid #2b2b2b;background:#1a1a1a;color:var(--ink);padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer}
+    .btn.accent{background:var(--accent);color:#0a0a0a;border-color:transparent}
+    .btn.ghost{background:transparent}
+    .btn.small{padding:8px 12px;font-size:.92rem;border-radius:10px}
+    .hero{margin:20px 0 16px;padding:18px;border:1px solid #202020;border-radius:16px;background:linear-gradient(180deg,rgba(152,245,225,.06),transparent),var(--card)}
+    .hero h1{margin:0 0 6px;font-size:26px}
+    .hero p{margin:0;color:var(--muted)}
+    .steps{display:grid;gap:12px}
+    .card{border:1px solid #202020;background:var(--card);border-radius:14px;padding:14px}
+    .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:#1e1e1e;border:1px solid #2b2b2b;font-weight:800}
+    .title{font-size:18px;font-weight:800;margin:0}
+    .desc{margin:4px 0 10px;color:var(--muted)}
+    .badge{font-size:.8rem;color:#d8d8d8;background:#1f1f1f;border:1px solid #2a2a2a;border-radius:999px;padding:2px 8px}
+    .link{display:inline-flex;align-items:center;gap:6px;padding:9px 12px;border-radius:10px;border:1px solid #2b2b2b;background:#1a1a1a;color:var(--ink);text-decoration:none;font-weight:700}
+    .link[aria-disabled="true"]{opacity:.45;pointer-events:none;border-color:#222;background:#111}
+    .status{display:flex;align-items:center;gap:6px;font-size:.9rem;color:#cfcfcf}
+    .dot.ok{background:var(--ok)}
+    .footer{margin:16px 0 6px;display:flex;align-items:center;justify-content:space-between;color:#9c9c9c;font-size:.92rem}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand"><span class="dot"></span> AI Street Brand — Quick Launcher</div>
+      <div class="row">
+        <button id="start" class="btn accent small">순서대로 시작</button>
+        <button id="reset" class="btn ghost small">초기화</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <h1>이 순서대로 클릭하면 바로 진행됩니다.</h1>
+      <p>1) 셀프 인터뷰 → 2) 네이밍 → 3) 디자인 (Canva 연동 GPT). 각 단계는 새 탭에서 열리고, 진행 상태는 브라우저에 저장됩니다.</p>
+    </section>
+
+    <div class="steps" id="steps">
+      <!-- Step 1 -->
+      <div class="card" id="step1">
+        <div class="row">
+          <span class="num">1</span>
+          <h3 class="title">셀프 인터뷰하기</h3>
+          <span class="badge">Identity</span>
+        </div>
+        <p class="desc">스몰토크를 통해 정체성 키워드를 정리하고, 다음 단계에 붙여 넣을 브리프를 확보합니다.</p>
+        <div class="row">
+          <a class="link" id="link1" href="https://chatgpt.com/g/g-688f8fa2d8888191a118d465e1ad388f-self-interviewer" target="_blank" rel="noopener">ChatGPTs 열기</a>
+          <div class="status" id="status1"><span class="dot"></span> 대기</div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="card" id="step2">
+        <div class="row">
+          <span class="num">2</span>
+          <h3 class="title">네이밍 생성하기</h3>
+          <span class="badge">Naming</span>
+        </div>
+        <p class="desc">1단계 브리프를 붙여 넣고 20안에서 추려 최종 후보를 결정합니다.</p>
+        <div class="row">
+          <a class="link" id="link2" href="https://chatgpt.com/g/g-xSKJTIgii-ownstreet?model=gpt-4o" target="_blank" rel="noopener" aria-disabled="true">ChatGPTs 열기</a>
+          <div class="status" id="status2"><span class="dot"></span> 잠김</div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="card" id="step3">
+        <div class="row">
+          <span class="num">3</span>
+          <h3 class="title">디자인하기 (Canva 연동)</h3>
+          <span class="badge">Visual</span>
+        </div>
+        <p class="desc">선택한 네임으로 워드마크/심볼/컬러를 전개하고 Canva 연동으로 목업을 만듭니다.</p>
+        <div class="row">
+          <a class="link" id="link3" href="https://chatgpt.com/g/g-alKfVrz9K-canva" target="_blank" rel="noopener" aria-disabled="true">ChatGPTs 열기</a>
+          <div class="status" id="status3"><span class="dot"></span> 잠김</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>© <span id="year"></span> Street Brand MVP</div>
+      <div class="status"><span class="dot" id="progDot"></span> 진행: <span id="done">0</span>/3</div>
+    </div>
+  </div>
+
+  <script>
+    const LS = (k,v)=>v===undefined?localStorage.getItem(k):localStorage.setItem(k,v);
+    const stepKey = (n)=>`SB_DIRECT_STEP_${n}`;
+    const getDone = (n)=> LS(stepKey(n))==='1';
+    const setDone = (n,v=true)=> LS(stepKey(n), v?'1':'0');
+
+    function updateUI(){
+      const done1 = getDone(1), done2 = getDone(2), done3 = getDone(3);
+      // step1
+      document.querySelector('#status1').innerHTML = `<span class="dot ${done1?'ok':''}"></span> ${done1?'완료':'대기'}`;
+      // step2
+      const l2 = document.querySelector('#link2');
+      l2.setAttribute('aria-disabled', done1? 'false':'true');
+      document.querySelector('#status2').innerHTML = `<span class="dot ${done2?'ok':''}"></span> ${done1? (done2?'완료':'대기'):'잠김'}`;
+      // step3
+      const l3 = document.querySelector('#link3');
+      l3.setAttribute('aria-disabled', (done1&&done2)? 'false':'true');
+      document.querySelector('#status3').innerHTML = `<span class="dot ${done3?'ok':''}"></span> ${(done1&&done2)? (done3?'완료':'대기'):'잠김'}`;
+      // progress
+      const count = (done1?1:0)+(done2?1:0)+(done3?1:0);
+      document.querySelector('#done').textContent = count;
+      const pd = document.querySelector('#progDot');
+      pd.className = `dot ${count===3?'ok':''}`;
+    }
+
+    function openAndMark(url, n){
+      window.open(url, '_blank', 'noopener');
+      setDone(n,true);
+      updateUI();
+    }
+
+    document.getElementById('link1').addEventListener('click', (e)=>{ openAndMark(e.currentTarget.href, 1); });
+    document.getElementById('link2').addEventListener('click', (e)=>{
+      if(e.currentTarget.getAttribute('aria-disabled')==='true'){ e.preventDefault(); alert('먼저 1단계를 완료하세요.'); return; }
+      openAndMark(e.currentTarget.href, 2);
+    });
+    document.getElementById('link3').addEventListener('click', (e)=>{
+      if(e.currentTarget.getAttribute('aria-disabled')==='true'){ e.preventDefault(); alert('먼저 1–2단계를 완료하세요.'); return; }
+      openAndMark(e.currentTarget.href, 3);
+    });
+
+    document.getElementById('start').addEventListener('click',()=>{ document.getElementById('link1').click(); });
+    document.getElementById('reset').addEventListener('click',()=>{
+      [1,2,3].forEach(n=>localStorage.removeItem(stepKey(n)));
+      updateUI();
+      alert('진행 상태가 초기화되었습니다.');
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+    updateUI();
+  </script>
+</body>
+</html>
